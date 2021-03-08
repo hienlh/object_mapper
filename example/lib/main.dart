@@ -21,9 +21,9 @@ final json = {
 
 class CategoryInfo with Mappable {
   // Attributes
-  int id;
-  String name;
-  List<BookInfo> books;
+  int? id;
+  String? name;
+  List<BookInfo?>? books;
 
   @override
   void mapping(Mapper map) {
@@ -35,10 +35,10 @@ class CategoryInfo with Mappable {
 
 class BookInfo with Mappable {
   // Attributes
-  int id;
-  String name;
-  String author;
-  DateTime publishAt;
+  int? id;
+  String? name;
+  String? author;
+  DateTime? publishAt;
 
   @override
   void mapping(Mapper map) {

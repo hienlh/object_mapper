@@ -1,13 +1,13 @@
 part of '../../object_mapper.dart';
 
-class ColorTransform implements Transformable<Color, String> {
+class ColorTransform implements Transformable<Color?, String?> {
   ColorTransform();
 
   @override
-  Color fromJson(value) {
+  Color? fromJson(value, [Color fallbackColor = Colors.white]) {
     try {
       if (value is String) {
-        return HexColor.fromHex(value, null);
+        return HexColor.fromHex(value, fallbackColor);
       }
       return null;
     } catch (e) {
@@ -16,7 +16,7 @@ class ColorTransform implements Transformable<Color, String> {
   }
 
   @override
-  String toJson(Color value) {
+  String? toJson(Color? value) {
     if (value == null) return null;
 
     return value.toHex(leadingHashSign: false);
@@ -25,18 +25,15 @@ class ColorTransform implements Transformable<Color, String> {
 
 extension HexColor on Color {
   /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
-  static Color fromHex(String hexString, [Color fallbackColor]) {
+  static Color fromHex(String hexString,
+      [Color fallbackColor = Colors.white]) {
     try {
       final buffer = StringBuffer();
       if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
       buffer.write(hexString.replaceFirst('#', ''));
       return Color(int.parse(buffer.toString(), radix: 16));
     } catch (e) {
-      if (fallbackColor != null) {
-        return fallbackColor;
-      } else {
-        rethrow;
-      }
+      return fallbackColor;
     }
   }
 

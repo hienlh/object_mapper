@@ -3,7 +3,7 @@ part of '../../object_mapper.dart';
 class DateUnit extends Enumerable<int> {
   @override
   final int rawValue;
-  const DateUnit({@required this.rawValue});
+  const DateUnit({required this.rawValue});
 
   //
   static const seconds = DateUnit(rawValue: 1000);
@@ -18,13 +18,13 @@ class DateUnit extends Enumerable<int> {
   }
 }
 
-class DateTransform implements Transformable<DateTime, double> {
+class DateTransform implements Transformable<DateTime?, double?> {
   DateUnit unit;
   DateTransform({this.unit = DateUnit.seconds});
 
   //
   @override
-  DateTime fromJson(value) {
+  DateTime? fromJson(value) {
     try {
       if (value == null) return null;
       if (value is String) return DateTime.parse(value);
@@ -38,7 +38,7 @@ class DateTransform implements Transformable<DateTime, double> {
   }
 
   @override
-  double toJson(DateTime value) {
+  double? toJson(DateTime? value) {
     if (value == null) return null;
 
     return unit.removeScale(value.millisecondsSinceEpoch.toDouble());

@@ -4,9 +4,7 @@ abstract class Mappable {
   static Map<Type, Function> factories = {};
 
   factory Mappable(Type type) {
-    var constructor = Mappable.factories[type];
-    assert(constructor != null,
-        '${type.toString()} is not defined in Reflection.factories');
+    var constructor = Mappable.factories[type]!;
     return constructor();
   }
 
