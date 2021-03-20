@@ -64,10 +64,10 @@ class Mapper {
       if (type == ValueType.list) {
         assert(
             T.toString() != 'dynamic', 'Missing type at mapping for `$field`');
-        final list = <T?>[];
+        final list = <T>[];
         for (var i = 0; i < v.length; i++) {
           final item = transform.fromJson(v[i]);
-          list.add(item);
+          if (item != null) list.add(item);
         }
         setter(list);
       } else {
@@ -83,11 +83,11 @@ class Mapper {
       case ValueType.list:
         // Return it-self, if T is not set
         if (T.toString() == 'dynamic') return setter(v);
-        final list = <T?>[];
+        final list = <T>[];
 
         for (var i = 0; i < v.length; i++) {
           final item = _itemBuilder<T>(v[i], MappingType.fromJson);
-          list.add(item);
+          if (item != null) list.add(item);
         }
 
         setter(list);
@@ -116,7 +116,7 @@ class Mapper {
         final list = <dynamic>[];
         for (var i = 0; i < value.length; i++) {
           final item = transform.toJson(value[i]);
-          list.add(item);
+          if (item != null) list.add(item);
         }
         data = list;
       } else {

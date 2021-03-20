@@ -39,9 +39,9 @@ class TestInfo with Mappable {
   List<int>? numbers;
   Map<String, dynamic>? meta;
   NestedInfo? nested;
-  List<NestedInfo?>? nests;
+  List<NestedInfo>? nests;
   DateTime? time;
-  List<DateTime?>? times;
+  List<DateTime>? times;
   bool? likeNotification;
 
   @override
@@ -213,7 +213,7 @@ void main() {
       expect(info.likeNotification, json['setting']['notification']['like']);
       expect(info.times, isNotNull);
       expect(info.times!.length, equals(json['times'].length));
-      expect(info.times!.first!.millisecondsSinceEpoch,
+      expect(info.times!.first.millisecondsSinceEpoch,
           equals(json['times'][0] * 1000));
 
       final nested = info.nested;
